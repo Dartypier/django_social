@@ -5,4 +5,5 @@ function toggle_form_widget() {
     } else {
         form_widget.style.display = "none";
     }
-} 
+}
+

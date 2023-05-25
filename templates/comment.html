@@ -1,0 +1,18 @@
+{% load crispy_forms_tags %}
+
+<div id="form_widget" class="mt-2 p-2 card-comments border border-2 rounded-3 border-light" style="display: none;">
+    {% for comment in post.comment_set.all %}
+    <p>
+        <span class="text_muted">@{{comment.author}}</span>
+        <span class="text-muted">{{comment}}</span>
+    </p>
+    {% endfor %}
+
+    <form class="border border-2 rounded-3 border-light" action="" method="post">
+        {% csrf_token %}
+        {{form_comment|crispy}}
+        <button class="btn" type="submit"><i class="bi bi-send"></i></button>
+    </form>
+
+
+</div>

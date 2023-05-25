@@ -4,6 +4,7 @@ from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
+from django.http import JsonResponse
 
 
 class CommentView:
@@ -67,3 +68,27 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+def like_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    user = request.user
+
+    if post.likes.filter(id=user.id).exists():
+        # User already liked the post, remove the like
+        post.likes.remove(user)
+        liked = False
+    else:
+        # User hasn't liked the post, add the like
+        post.likes.add(user)
+        liked = True
+
+    # Pass the liked status and total likes count to the template
+    data = {
+        "liked": liked,
+        "count": post.likes.count(),
+        "user_has_liked": post.likes.filter(id=user.id).exists(),
+    }
+
+    # Return a JSON response with the updated like status
+    return JsonResponse(data)

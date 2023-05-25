@@ -25,16 +25,7 @@
                 <button class="btn card-link" onclick="toggle_form_widget()"><i
                         class="bi bi-chat-left-text-fill"></i></button>
 
-                <div id="form_widget" class="mt-2 p-2 card-comments border border-2 rounded-3 border-light"
-                    style="display: none;">
-                    {% for comment in post.comment_set.all %}
-                    <p>
-                        <span class="text_muted">@{{comment.author}}</span>
-                        <span class="text-muted">{{comment}}</span>
-                    </p>
-                    {% endfor %}
-                    {% include 'form_comment.html' %}
-                </div>
+                {% include 'comment.html' %}
             </div>
         </div>
     </div>
