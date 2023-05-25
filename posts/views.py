@@ -7,13 +7,6 @@ from .forms import CommentForm
 from django.http import JsonResponse
 
 
-class CommentView:
-    model = Comment
-
-    def count_comments_for_article(self):
-        pass
-
-
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = "home.html"
@@ -24,7 +17,7 @@ class PostListView(LoginRequiredMixin, ListView):
         return context
 
 
-class PostDetailView(LoginRequiredMixin, DetailView, CommentView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = "post_detail.html"
 
@@ -52,11 +45,14 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = "post_delete.html"
-    success_url = reverse_lazy("user_profile")
+    success_url = reverse_lazy("home")
 
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
+
+    # def get_success_url(self):
+    #     return self.request.META.get("HTTP_REFERER") or reverse_lazy("home")
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
