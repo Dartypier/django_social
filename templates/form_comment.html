@@ -1,0 +1,6 @@
+{% load crispy_forms_tags %}
+<form class="border border-2 rounded-3 border-light" action="" method="post">
+    {% csrf_token %}
+    {{form_comment|crispy}}
+    <button class="btn" type="submit"><i class="bi bi-send"></i></button>
+</form>

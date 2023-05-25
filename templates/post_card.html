@@ -1,0 +1,67 @@
+<!-- TO BE IMPLEMENTED,
+deve essefre usato per rimpiazzare il coidice delle card rispetute in home e post_detail -->
+
+<!-- {% extends "base.html" %}
+
+{% block quill %}
+{{ form.media }}
+{% endblock quill %}
+
+{% for post in post_list %}
+
+<article class="mb-3">
+    <div class="row justify-content-center align-items-center">
+        <div class="card border border-3 border-light rounded-3" style="width: 40rem;">
+            <div class="card-body">
+                <h1 class="card-title h6" style="display: inline;">@{{post.author}}</h1>
+                <button class="btn ms-2" data-bs-toggle="modal" data-bs-target="#modal_{{post.pk}}"><i
+                        class="bi bi-three-dots"></i></button>
+                <p class="card-subtitle text-muted mt-1">
+                    {% if post.create_date != post.update_date %}
+                    {{post.create_date}} (edited)
+                    {% else %}
+                    {{ post.create_date }}
+                    {% endif %}
+                </p>
+                <p class="card-text mx-4 mt-2">{{post.body.html|safe}}</p>
+                <button class="btn card-link"><i class="bi bi-heart-fill"></i></button>
+                <button class="btn card-link" onclick="toggle_form_widget()"><i
+                        class="bi bi-chat-left-text-fill"></i></button>
+
+                <div id="form_widget" class="mt-2 p-2 card-comments border border-2 rounded-3 border-light"
+                    style="display: none;">
+                    {% for comment in post.comment_set.all %}
+                    <p>
+                        <span class="text_muted">@{{comment.author}}</span>
+                        <span class="text-muted">{{comment}}</span>
+                    </p>
+                    {% endfor %}
+                    {% include 'form_comment.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<div class="modal fade" id="modal_{{post.pk}}" tabindex="-1" aria-labelledby="post-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <a href="{% url 'post_detail' post.author post.pk %}">Open Post</a>
+                {% if user.pk == post.author.pk %}
+                <hr>
+                <a href="{{post.get_absolute_url}}/edit">Edit</a>
+                <hr>
+                <a href="{{post.get_absolute_url}}/delete">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% block iterate_end %}{% endblock iterate_end %} -->
