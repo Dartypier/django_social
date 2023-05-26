@@ -26,7 +26,6 @@ class Post(models.Model):
 
     class Meta:
         db_table = "posts_post"
-        db_table_comment = "This table contains user related posts"
         ordering = ["-create_date"]
 
 
