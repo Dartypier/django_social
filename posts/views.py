@@ -1,9 +1,8 @@
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Post, Comment
-from django.urls import reverse_lazy, resolve, reverse
+from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic.detail import SingleObjectMixin
 from .forms import CommentForm
 from django.http import JsonResponse
 from django.shortcuts import redirect

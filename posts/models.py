@@ -1,18 +1,18 @@
 from django.db import models
 from django.urls import reverse
 from django_quill.fields import QuillField
-from django.contrib.auth.models import User
+from accounts.models import CustomUser
 
 
 class Post(models.Model):
     author = models.ForeignKey(
-        "auth.User",
+        CustomUser,
         on_delete=models.CASCADE,
     )
     body = QuillField()
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(User, blank=True, related_name="likes")
+    likes = models.ManyToManyField(CustomUser, blank=True, related_name="likes")
 
     @property
     def total_likes(self):
@@ -32,7 +32,7 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.CharField(max_length=200)
-    author = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.comment

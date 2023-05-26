@@ -156,3 +156,10 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+
+##Custom AUTH Model
+AUTH_USER_MODEL = "accounts.CustomUser"
+
+##Manages avatar images
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"

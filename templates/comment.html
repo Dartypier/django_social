@@ -1,7 +1,6 @@
 {% load crispy_forms_tags %}
 
-<div id="form_widget-{{post.pk}}" class="mt-2 p-2 card-comments border border-2 rounded-3 border-light"
-    style="display: none;">
+<div id="form_widget-{{post.pk}}" class="mt-2 p-2 card-comments border border-1 rounded-3 " style="display: none;">
     {% for comment in post.comment_set.all %}
     <div class="container">
         <div class="row align-items-center">
