@@ -2,6 +2,5 @@ django_social/.env
 .idea
 staticfiles
 migrations
-
- __pycache__/
+__pycache__/
  *.pyc
