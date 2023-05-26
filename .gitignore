@@ -1,2 +1,5 @@
 django_social/.env
 .idea
+
+ __pycache__/
+ *.pyc
