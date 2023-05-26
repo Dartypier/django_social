@@ -24,8 +24,6 @@ urlpatterns = [
         PostCreateView.as_view(),
         name="post_create",
     ),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path("accounts/", include("accounts.urls")),
     path("like/<int:pk>/", like_post, name="like_post"),
     ##comment
     path("comment/create/", CommentCreateView.as_view(), name="comment_create"),
