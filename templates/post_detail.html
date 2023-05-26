@@ -32,10 +32,13 @@
                 <span id="like-count-{{ post.pk }}">{{ post.total_likes }}</span>
 
                 <!-- Comment Button -->
-                <button class="btn card-link" onclick="toggle_form_widget()"><i
+                <button id="comment-toggler-{{ post.pk }}" class="btn card-link"
+                    onclick="toggle_form_widget('comment-toggler-{{ post.pk }}', 'form_widget-{{ post.pk }}')"><i
                         class="bi bi-chat-left-text-fill"></i></button>
 
                 {% include 'comment.html' %}
+
+
             </div>
         </div>
     </div>
@@ -50,9 +53,9 @@
             <div class="modal-body text-center">
                 {% if request.resolver_match.url_name != 'post_detail' %}
                 <a href="{% url 'post_detail' post.author post.pk %}">Open Post</a>
+                <hr>
                 {% endif %}
                 {% if user.pk == post.author.pk %}
-                <hr>
                 <a href="{{post.get_absolute_url}}/edit">Edit</a>
                 <hr>
                 <a href="{{post.get_absolute_url}}/delete">Delete</a>
@@ -66,4 +69,5 @@
 
 {% block scripts %}
 <script src="{% static 'js/likes.js' %}"></script>
+<script src="{% static 'js/comments.js' %}"></script>
 {% endblock scripts %}

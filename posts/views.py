@@ -1,10 +1,46 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Post, Comment
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, resolve, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic.detail import SingleObjectMixin
 from .forms import CommentForm
 from django.http import JsonResponse
+from django.shortcuts import redirect
+
+
+##handles POST and GET
+class CommentCreateView(View):
+    form_class = CommentForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.post_id = request.POST.get("post_id")
+            comment.save()
+        return redirect(request.META.get("HTTP_REFERER"))
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = "comment_delete.html"
+    success_url = reverse_lazy("home")
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = "post_delete.html"
+    success_url = reverse_lazy("home")
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
 
 class PostListView(LoginRequiredMixin, ListView):
@@ -50,9 +86,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
-
-    # def get_success_url(self):
-    #     return self.request.META.get("HTTP_REFERER") or reverse_lazy("home")
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

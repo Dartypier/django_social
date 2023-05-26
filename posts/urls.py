@@ -6,6 +6,8 @@ from .views import (
     PostDeleteView,
     PostCreateView,
     like_post,
+    CommentCreateView,
+    CommentDeleteView,
 )
 
 urlpatterns = [
@@ -25,4 +27,11 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/", include("accounts.urls")),
     path("like/<int:pk>/", like_post, name="like_post"),
+    ##comment
+    path("comment/create/", CommentCreateView.as_view(), name="comment_create"),
+    path(
+        "comment/<str:author>/<int:pk>/delete",
+        CommentDeleteView.as_view(),
+        name="comment_delete",
+    ),
 ]
