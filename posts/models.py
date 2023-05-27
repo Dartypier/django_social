@@ -9,7 +9,7 @@ class Post(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
     )
-    body = QuillField()
+    body = QuillField(blank=False, null=False)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(CustomUser, blank=True, related_name="likes")
@@ -31,7 +31,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    comment = models.CharField(max_length=200)
+    comment = models.CharField(max_length=200, blank=False, null=False)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
