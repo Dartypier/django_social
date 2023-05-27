@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from accounts.models import UserFollowing
+from django.db.models import Q
 
 
 ##handles POST and GET
@@ -50,6 +52,19 @@ class PostListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context["form_comment"] = CommentForm()
         return context
+
+    def get_queryset(self):
+        # Get the posts of the users that the current user is following
+        followed_users = UserFollowing.objects.filter(
+            user_id=self.request.user
+        ).values_list("following_user_id", flat=True)
+
+        # Filter the posts based on the followed users
+        queryset = Post.objects.filter(
+            Q(author__in=followed_users) | Q(author=self.request.user)
+        )
+
+        return queryset
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):

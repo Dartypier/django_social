@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="">All Users</h1>
+<p class=" mb-4">Follow your favourite users to see their posts in your feed.</p>
+
+{% for user in users %}
+<div class="container-md mb-2">
+    <div class="row align-items-center border border-2 rounded-4">
+        <div class="col-1">
+            <img src="{{user.avatar.url}}" alt="user" class="img-fluid rounded-5" style="max-width: 50px;">
+        </div>
+        <div class="col-5">
+            <h5><a href="{% url 'user_profile' user.pk %}" class="profile-link">@{{user.username}}</a></h5>
+            {% if user.bio %}<p class="text-muted">{{user.bio}}</p>{% endif %}
+        </div>
+        <div class="col-auto">
+            {% if user.pk not in following %}
+            <form action="{% url 'follow_toggle' user.pk %}" method="POST">
+                {% csrf_token %}
+                <!-- used to redirect to this page after POST handled -->
+                <input type="hidden" name="next_page" value="{{ request.path }}">
+                <button class="btn btn-primary" type="submit" name="action" value="follow">Follow</button>
+            </form>
+            {% else %}
+            <form action="{% url 'follow_toggle' user.pk %}" method="POST">
+                {% csrf_token %}
+                <!-- used to redirect to this page after POST handled -->
+                <input type="hidden" name="next_page" value="{{ request.path }}">
+                <button class="btn btn-primary" type="submit" name="action" value="unfollow">Unfollow</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

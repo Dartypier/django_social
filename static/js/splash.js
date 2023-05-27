@@ -10,7 +10,7 @@ function showSplashScreen() {
     setTimeout(function () {
         splashScreen.style.display = 'none';
         content.style.display = 'block';
-    }, 500);
+    }, 400);
 
     // splashScreen.style.display = 'none';
     // content.style.display = 'block';

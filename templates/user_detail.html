@@ -20,7 +20,14 @@
                                 style="width: 180px;">
                         </div>
                         <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">{{object.first_name}} {{object.last_name}}</h5>
+                            <div>
+                                <span class="mb-1 h5">{{object.first_name}} {{object.last_name}} </span>
+                                <span>
+                                    {% if request.user.pk == object.pk %}
+                                    <a href="{% url 'user_change' %}"><i class="bi bi-pencil-fill"></i></a>
+                                    {% endif %}
+                                </span>
+                            </div>
                             <p class="mb-2 pb-1 badge bg-primary" style="color: #efefef;">@{{object.username}}</p>
                             <div class="d-flex justify-content-evenly rounded-3 p-2 mb-2"
                                 style="background-color: #efefef;">
@@ -44,6 +51,8 @@
 
                                 <form method="post" action="{% url 'follow_toggle' object.pk %}">
                                     {% csrf_token %}
+                                    <!-- redirect to this page after POST handled -->
+                                    <input type="hidden" name="next_page" value="{{ request.path }}">
                                     <button type="submit" class="btn btn-primary flex-grow-1">
                                         {% if is_following %}
                                         Unfollow
@@ -63,7 +72,7 @@
                         </div>
 
                     </div>
-                    {% if object.bio %}<p class="mt-3 mb-0">Bio: {{object.bio}}</p>{% endif %}
+                    {% if object.bio %}<p class="mt-3 mb-0 text-muted">{{object.bio}}</p>{% endif %}
                 </div>
             </div>
         </div>
@@ -76,8 +85,9 @@
 
 <article class="mb-3">
     <div class="row justify-content-center align-items-center">
-        <div class="card border border-2 rounded-3" style="width: 40rem;">
-            <div class="card-body">
+        <div class="card border border-2  rounded-3" style="width: 40rem;">
+            <div class="card-body"><img src="{{post.author.avatar.url}}" alt="user" class="img-fluid rounded-5 me-1"
+                    style="max-width: 50px;">
                 <h1 class="card-title h6" style="display: inline;"><a class="text-decoration-none text-reset"
                         href="{% url 'user_profile' post.author.pk %}">@{{post.author}}</a></h1>
                 {% if user.pk == post.author.pk or request.resolver_match.url_name != 'post_detail' %}
@@ -93,10 +103,7 @@
                 </p>
                 <p class="card-text mx-4 mt-2">{{post.body.html|safe}}</p>
 
-
-                <!-- Comment Button and Like Button are not shown in this context -->
-
-
+                <!-- Comment and Like button section not shown here -->
 
 
             </div>
