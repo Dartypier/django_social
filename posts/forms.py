@@ -8,6 +8,9 @@ class PostForm(forms.ModelForm):
         fields = [
             "body",
         ]
+        labels = {
+            "body": "",
+        }
 
 
 class CommentForm(forms.ModelForm):

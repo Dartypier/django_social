@@ -3,7 +3,7 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .models import Post, Comment
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from accounts.models import UserFollowing
@@ -84,7 +84,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ("body",)
+    form_class = PostForm
     template_name = "post_edit.html"
 
     def test_func(self):
@@ -105,7 +105,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "post_create.html"
-    fields = ("body",)
+    form_class = PostForm
 
     # auto-set author to current-user
     def form_valid(self, form):
