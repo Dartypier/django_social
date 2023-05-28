@@ -12,7 +12,7 @@
         <div class="card border border-2  rounded-3" style="width: 40rem;">
             <div class="card-body"><img src="{{post.author.avatar.url}}" alt="user" class="img-fluid rounded-5 me-1"
                     style="max-width: 50px;">
-                <h1 class="card-title h6" style="display: inline;"><a class="text-decoration-none text-reset"
+                <h1 class="card-title h6" style="display: inline;"><a class="text-decoration-none"
                         href="{% url 'user_profile' post.author.pk %}">@{{post.author}}</a></h1>
                 {% if user.pk == post.author.pk or request.resolver_match.url_name != 'post_detail' %}
                 <button class="btn ms-2" data-bs-toggle="modal" data-bs-target="#modal_{{post.pk}}"><i

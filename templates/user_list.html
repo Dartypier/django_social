@@ -11,8 +11,8 @@
             <img src="{{user.avatar.url}}" alt="user" class="img-fluid rounded-5" style="max-width: 50px;">
         </div>
         <div class="col-5">
-            <h5><a href="{% url 'user_profile' user.pk %}" class="profile-link">@{{user.username}}</a></h5>
-            {% if user.bio %}<p class="text-muted">{{user.bio}}</p>{% endif %}
+            <h6 class="h6"><a href="{% url 'user_profile' user.pk %}" class="profile-link">@{{user.username}}</a></h6>
+            {% if user.bio %}<p class="text-muted fs-6">{{user.bio}}</p>{% endif %}
         </div>
         <div class="col-auto">
             {% if user.pk not in following %}

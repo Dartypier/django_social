@@ -70,3 +70,7 @@ main {
     background-color: #fff;
     box-shadow: none;
 }
+
+a {
+    text-decoration: none !important;
+}
