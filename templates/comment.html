@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-11">
-                <span class="">@{{ comment.author }}</span>
+                <a href="{% url 'user_profile' comment.author.pk %}"><span class="">@{{ comment.author }}</span></a>
                 <span class="text-muted">{{ comment }}</span>
             </div>
 

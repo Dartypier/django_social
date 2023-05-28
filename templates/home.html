@@ -19,27 +19,28 @@
                 <button class="btn ms-2" data-bs-toggle="modal" data-bs-target="#modal_{{post.pk}}"><i
                         class="bi bi-three-dots"></i></button>
                 {% endif %}
-                <p class="card-subtitle text-muted mt-1">
-                    {% if post.create_date != post.update_date %}
-                    {{post.create_date}} (edited)
-                    {% else %}
-                    {{ post.create_date }}
-                    {% endif %}
-                </p>
-                <p class="card-text mx-4 mt-2">{{post.body.html|safe}}</p>
+                {% if user.last_login < post.create_date %} <span class="badge bg-secondary">New</span> {% endif %}
+                    <p class="card-subtitle text-muted mt-1">
+                        {% if post.create_date != post.update_date %}
+                        {{post.create_date}} (edited)
+                        {% else %}
+                        {{ post.create_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text mx-4 mt-2">{{post.body.html|safe}}</p>
 
-                <!-- Like Button -->
-                <button class="btn card-link like-button {% if request.user in post.likes.all %}liked{% endif %}"
-                    id="like-button-{{ post.pk }}" onclick="handleLike('{{ post.pk }}')">
-                    <i class=" bi bi-heart-fill"></i></button>
-                <span id="like-count-{{ post.pk }}">{{ post.total_likes }}</span>
+                    <!-- Like Button -->
+                    <button class="btn card-link like-button {% if request.user in post.likes.all %}liked{% endif %}"
+                        id="like-button-{{ post.pk }}" onclick="handleLike('{{ post.pk }}')">
+                        <i class=" bi bi-heart-fill"></i></button>
+                    <span id="like-count-{{ post.pk }}">{{ post.total_likes }}</span>
 
-                <!-- Comment Button -->
-                <button id="comment-toggler-{{ post.pk }}" class="btn card-link"
-                    onclick="toggle_form_widget('comment-toggler-{{ post.pk }}', 'form_widget-{{ post.pk }}')"><i
-                        class="bi bi-chat-left-text-fill"></i></button>
+                    <!-- Comment Button -->
+                    <button id="comment-toggler-{{ post.pk }}" class="btn card-link"
+                        onclick="toggle_form_widget('comment-toggler-{{ post.pk }}', 'form_widget-{{ post.pk }}')"><i
+                            class="bi bi-chat-left-text-fill"></i></button>
 
-                {% include 'comment.html' %}
+                    {% include 'comment.html' %}
 
 
             </div>
