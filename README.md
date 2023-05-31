@@ -3,6 +3,8 @@
 This is a small social network written in [Django web framework](https://www.djangoproject.com/), for a UNI Project. 
 To ease the development and deployment process, docker compose files are configured.
 
+[See the demo here.](http://ds.zecchi.co)
+
 ![Django Social Screenshot](/readme.assets/sc1.png)
 
 ## Functions
