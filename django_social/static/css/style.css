@@ -75,6 +75,6 @@ a {
     text-decoration: none !important;
 }
 
-img {
+.post * {
     max-width: 100%;
 }
