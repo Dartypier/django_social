@@ -1,0 +1,10 @@
+/django_social/.env
+/.idea
+staticfiles
+migrations
+__pycache__/
+ *.pyc
+/db.sqlite3
+avatar/
+
+backups
