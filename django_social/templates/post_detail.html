@@ -20,8 +20,8 @@
                 {% endif %}
                 {% if user.last_login < post.create_date %} <span class="badge bg-secondary">New</span> {% endif %}
                     <p class="card-subtitle text-muted mt-1">
-                        {% if post.create_date != post.update_date %}
-                        {{post.create_date}} (edited)
+                        {% if post.create_date|date:'Y-m-d H:i:s' != post.update_date|date:'Y-m-d H:i:s' %}
+                        {{ post.create_date }} (edited)
                         {% else %}
                         {{ post.create_date }}
                         {% endif %}
