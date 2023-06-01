@@ -17,6 +17,7 @@ You can create a new user and navigate throught the web app.
 - User Profiles
 - Password Change by Email
 - Post creation
+- Post Feed
 - Likes
 - Comments
 - Users follow/unfollow
