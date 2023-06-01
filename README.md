@@ -99,6 +99,11 @@ By default the web service is active on port 8000.
 The deploy is made with docker to minimize the deployment problems. You need to install [docker engine](https://docs.docker.com/engine/install/) and [docker compose](https://docs.docker.com/compose/install/). 
 The docker compose file is `docker-compose.prod.yml`
 
+This environment contains:
+- web (contains django web app)
+- db (contains postgres DBMS)
+- nginx (for local media and staticfiles management)
+
 First of all you need to clone this repo:
 
 ```
