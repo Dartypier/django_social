@@ -1,0 +1,60 @@
+<article class="mb-3 post">
+    <div class="row justify-content-center align-items-center">
+        <div class="card border border-2  rounded-3" style="width: 40rem;">
+            <div class="card-body"><img src="{{post.author.avatar.url}}" alt="user" class="img-fluid rounded-5 me-1"
+                    style="max-width: 50px;">
+                <h1 class="card-title h6" style="display: inline;"><a class="text-decoration-none"
+                        href="{% url 'user_profile' post.author.pk %}">@{{post.author}}</a></h1>
+                {% if user.pk == post.author.pk or request.resolver_match.url_name != 'post_detail' %}
+                <button class="btn ms-2" data-bs-toggle="modal" data-bs-target="#modal_{{post.pk}}"><i
+                        class="bi bi-three-dots"></i></button>
+                {% endif %}
+                {% if user.last_login < post.create_date %} <span class="badge bg-secondary">New</span> {% endif %}
+                    <p class="card-subtitle text-muted mt-1">
+                        {% if post.create_date|date:'Y-m-d H:i:s' != post.update_date|date:'Y-m-d H:i:s' %}
+                        {{ post.create_date }} (edited)
+                        {% else %}
+                        {{ post.create_date }}
+                        {% endif %}
+                    </p>
+                    <p class="card-text mx-4 mt-2">{{post.body.html|safe}}</p>
+
+                    <!-- Like Button -->
+                    <button class="btn card-link like-button {% if request.user in post.likes.all %}liked{% endif %}"
+                        id="like-button-{{ post.pk }}" onclick="handleLike('{{ post.pk }}')">
+                        <i class=" bi bi-heart-fill"></i></button>
+                    <span id="like-count-{{ post.pk }}">{{ post.total_likes }}</span>
+
+                    <!-- Comment Button -->
+                    <button id="comment-toggler-{{ post.pk }}" class="btn card-link"
+                        onclick="toggle_form_widget('comment-toggler-{{ post.pk }}', 'form_widget-{{ post.pk }}')"><i
+                            class="bi bi-chat-left-text-fill"></i></button>
+
+                    {% include 'comment.html' %}
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<div class="modal fade" id="modal_{{post.pk}}" tabindex="-1" aria-labelledby="post-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                {% if request.resolver_match.url_name != 'post_detail' %}
+                <a href="{% url 'post_detail' post.author post.pk %}">Open Post</a>
+                <hr>
+                {% endif %}
+                {% if user.pk == post.author.pk %}
+                <a href="{{post.get_absolute_url}}/edit">Edit</a>
+                <hr>
+                <a href="{{post.get_absolute_url}}/delete">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

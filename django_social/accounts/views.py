@@ -7,6 +7,7 @@ from django.views.generic import DetailView, View, ListView, UpdateView
 from .models import CustomUser, UserFollowing
 from posts.models import Post
 from .forms import UserProfileEdit
+from posts.forms import CommentForm
 
 
 class SignUpView(CreateView):
@@ -37,6 +38,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context["followers_count"] = followers_count
         context["following_count"] = following_count
         context["is_following"] = is_following
+        context["form_comment"] = CommentForm()
 
         return context
 
